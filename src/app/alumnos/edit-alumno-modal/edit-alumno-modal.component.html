@@ -1,0 +1,51 @@
+<h1 mat-dialog-title class="text-center" style="font-weight: 500;">Modificar Alumno</h1>
+<div mat-dialog-content>
+  <h3 class="text-center" [hidden]="isSelected">{{bodyCopy}}</h3>
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <form [formGroup]="editForm">
+    <div class="form-floating my-2">
+        <input
+            formControlName="firstName"
+            type="text"
+            class="form-control"
+            id="firstName"
+        >
+        <label for="firstName">Primer Nombre</label>
+    </div>
+    <div class="form-floating my-2">
+      <input
+          formControlName="middleName"
+          type="text"
+          class="form-control"
+          id="middleName"
+      >
+      <label for="middleName">Segundo Nombre</label>
+    </div>
+    <div class="form-floating my-2">
+      <input
+          formControlName="lastName"
+          type="text"
+          class="form-control"
+          id="lastName"
+      >
+      <label for="lastName">Apellidos</label>
+    </div>
+    <div class="form-floating my-2">
+      <input
+          formControlName="curso"
+          type="number"
+          class="form-control"
+          id="curso"
+      >
+      <label for="curso">Curso al que pertenece</label>
+    </div>
+  </form>
+</div>
+<div class="justify-content-between" mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!isSelected" (click)="onSubmit()">Modificar</button>
+</div>

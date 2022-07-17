@@ -1,0 +1,14 @@
+<h1 mat-dialog-title class="text-center" style="font-weight: 500;"> ¿Estas seguro que quieres eliminar estos alumnos? </h1>
+<div mat-dialog-content>
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <h3 class="text-center">{{bodyCopy}}</h3>
+</div>
+<div class="justify-content-between" mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="!isSelected">Eliminar</button>
+</div>
+
