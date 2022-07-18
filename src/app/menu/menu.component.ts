@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { selectFeatureLogin } from '../state/selectors/login.selector';
+import { selectFeatureLogin, selectFeatureAdmin } from '../state/selectors/login.selector';
 import { falseLogOut } from '../state/actions/users.actions';
 import { Router } from '@angular/router';
 
@@ -13,12 +13,17 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
   isAuthenticated$: Observable<boolean> = new Observable();
-  isAutCookie: boolean = false;
+  isAdmin$: Observable<boolean> = new Observable();
+  isAuthCookie: boolean = false;
+  isAdminCookie: boolean = false;
   constructor(private cookie:CookieService, private store: Store<any>,private router: Router) { }
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.store.select(selectFeatureLogin);
-    this.isAutCookie = (this.cookie.get('username')) ? true : false;
+    this.isAuthCookie = (this.cookie.get('username')) ? true : false;
+
+    this.isAdmin$ = this.store.select(selectFeatureAdmin);
+    this.isAdminCookie = (this.cookie.get('admin') === "true") ? true : false;
   }
 
   onLogOut():void {

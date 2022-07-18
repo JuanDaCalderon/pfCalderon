@@ -18,7 +18,11 @@ body {
     border-right: 1px solid currentColor;
     text-align: center !important;
 }
-.mat-column-clase, .mat-column-profesor, .mat-column-curso, .mat-column-alumnos {
+.mat-column-nombre-del-curso{
+    border-right: 1px solid currentColor;
+    text-align: center !important;
+}
+.mat-column-clases, .mat-column-profesor, .mat-column-curso, .mat-column-alumnos {
     border-right: 1px solid currentColor;
     text-align: center !important;
 }

@@ -11,7 +11,11 @@ import { DeleteAlumnoModalComponent } from '../delete-alumno-modal/delete-alumno
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AlumnosService } from '../alumnos.service';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { loadAlumnos } from 'src/app/state/actions/users.actions';
+import { selectFeatureAlumnos } from 'src/app/state/selectors/alumnos.selector';
+import { AppState } from 'src/app/state/app.state';
 
 @Component({
   selector: 'app-dashboard-alumno',
@@ -29,11 +33,16 @@ export class DashboardComponentAlumno implements OnInit {
   dataSource = new MatTableDataSource<alumnosOutput>(this.data);
   isLoadingResults: boolean = true;
   getAlumnosSub:Subscription;
+  alumnos$: Observable<alumnosOutput> = new Observable();
   getAlumnosData() {
     this.getAlumnosSub = this.alumnoService.getAlumnos().subscribe(response => {
       this.data = response;
       this.dataSource.data = response;
       this.isLoadingResults = false;
+      this.store.dispatch(loadAlumnos({
+        alumnos: response
+      }));
+      this.alumnos$ = this.store.select(selectFeatureAlumnos);
     })
   }
 
@@ -43,7 +52,7 @@ export class DashboardComponentAlumno implements OnInit {
     },1000);
   });
 
-  constructor(private alumnoService: AlumnosService, public dialog: MatDialog, private toastr: ToastrService) {
+  constructor(private alumnoService: AlumnosService, public dialog: MatDialog, private toastr: ToastrService,private store: Store<AppState>) {
     this.getAlumnosData();
   }
 

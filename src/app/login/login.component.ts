@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Store } from '@ngrx/store';
-import { trueAuth } from '../state/actions/users.actions';
+import { falseAdmin, trueAuth } from '../state/actions/users.actions';
 
 @Component({
   selector: 'app-login',
@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.cookie.set('phone', response.phone);
               this.cookie.set('id', response.id);
             }
+            this.store.dispatch(falseAdmin({ isAdmin: response.admin }));
             this.toastr.success('Has iniciado sesión correctamente');
             setTimeout(() => {
               this.router.navigate(['/alumnos']);
