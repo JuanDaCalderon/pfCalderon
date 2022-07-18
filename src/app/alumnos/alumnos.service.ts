@@ -9,6 +9,7 @@ import { alumnosOutput, alumnosApi } from '../other/users';
 })
 export class AlumnosService {
   constructor(private http: HttpClient) { }
+
   getAlumnos() {
     return this.http.get <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos')
       .pipe(

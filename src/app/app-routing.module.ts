@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './guards/admin.guard';
 import { LogOutGuard } from './guards/log-out.guard';
 import { LoginGuard } from './guards/login.guard';
 
@@ -38,7 +39,7 @@ const routes: Routes = [
   {
     path: "cursos",
     loadChildren: () =>import("./cursos/cursos.module").then(m => m.CursosModule),
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard, AdminGuard]
   }
 ];
 
