@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -9,10 +10,13 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 export class HeaderToolbarComponent implements OnInit {
 
   @Input() titulo: string;
-
-  constructor() { }
+  avatar: string = "";
+  userName: string = "";
+  constructor(private cookie: CookieService) {
+    this.userName = this.cookie.get('username');
+    this.avatar = this.cookie.get('avatar');
+  }
 
   ngOnInit(): void {
   }
-
 }

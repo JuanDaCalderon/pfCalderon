@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.cookie.set('admin', response.admin, { expires: 7 });
               this.cookie.set('phone', response.phone, { expires: 7 });
               this.cookie.set('id', response.id, { expires: 7 });
+              this.cookie.set('avatar', response.avatar, { expires: 7 });
             }
             else {
               this.cookie.set('username', response.username);
@@ -52,7 +53,9 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.cookie.set('admin', response.admin);
               this.cookie.set('phone', response.phone);
               this.cookie.set('id', response.id);
+              this.cookie.set('avatar', response.avatar);
             }
+            console.log(response.admin);
             this.store.dispatch(falseAdmin({ isAdmin: response.admin }));
             this.toastr.success('Has iniciado sesión correctamente');
             setTimeout(() => {

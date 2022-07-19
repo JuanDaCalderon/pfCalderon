@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ROOT_REDUCERS } from './state/app.state';
 
+import { rolOutputPipe } from './pipes/rol.pipe';
+
 import { ToastrModule } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -25,7 +27,8 @@ import { EffectsModule } from '@ngrx/effects';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    MenuComponent
+    MenuComponent,
+    rolOutputPipe
   ],
   imports: [
     BrowserModule,

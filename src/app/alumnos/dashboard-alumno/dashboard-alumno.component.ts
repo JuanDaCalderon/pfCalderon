@@ -16,6 +16,8 @@ import { Store } from '@ngrx/store';
 import { loadAlumnos } from 'src/app/state/actions/users.actions';
 import { selectFeatureAlumnos } from 'src/app/state/selectors/alumnos.selector';
 import { AppState } from 'src/app/state/app.state';
+import { CookieService } from 'ngx-cookie-service';
+import { selectFeatureAdmin } from 'src/app/state/selectors/login.selector';
 
 @Component({
   selector: 'app-dashboard-alumno',
@@ -34,6 +36,11 @@ export class DashboardComponentAlumno implements OnInit {
   isLoadingResults: boolean = true;
   getAlumnosSub:Subscription;
   alumnos$: Observable<alumnosOutput> = new Observable();
+
+
+  isAdmin$: Observable<boolean> = new Observable();
+  isAdminCookie: boolean = false;
+
   getAlumnosData() {
     this.getAlumnosSub = this.alumnoService.getAlumnos().subscribe(response => {
       this.data = response;
@@ -52,11 +59,14 @@ export class DashboardComponentAlumno implements OnInit {
     },1000);
   });
 
-  constructor(private alumnoService: AlumnosService, public dialog: MatDialog, private toastr: ToastrService,private store: Store<AppState>) {
+  constructor(private cookie:CookieService,private alumnoService: AlumnosService, public dialog: MatDialog, private toastr: ToastrService,private store: Store<AppState>) {
     this.getAlumnosData();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.isAdmin$ = this.store.select(selectFeatureAdmin);
+    this.isAdminCookie = (this.cookie.get('admin') === "true") ? true : false;
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

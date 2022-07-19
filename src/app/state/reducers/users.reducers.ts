@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { trueAuth, falseLogOut, falseAdmin } from '../actions/users.actions';
+import { trueAuth, falseLogOut, falseAdmin, rolAction } from '../actions/users.actions';
 
 /* Estados iniciales - Inital State*/
-export const initialState: { isAuthenticated: boolean, isAdmin: boolean } =
+export const initialState: { isAuthenticated: boolean, isAdmin: boolean, rol: string } =
 {
     isAuthenticated: false,
-    isAdmin: true
+    isAdmin: false,
+    rol: 'estudiante'
 };
 
 export const loginReducer = createReducer(
@@ -18,5 +19,8 @@ export const loginReducer = createReducer(
     }),
     on(falseAdmin, (state, props) => {
         return { ...state, isAdmin: props.isAdmin }
+    }),
+    on(rolAction, (state) => {
+        return { ...state, rol: 'administrador' }
     })
 );

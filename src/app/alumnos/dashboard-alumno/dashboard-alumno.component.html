@@ -3,9 +3,9 @@
 <div class="container-fluid d-flex py-3 px-0" style="width: 80%;">
     <div class="row w-100">
         <div class="col d-flex w-100">
-            <button class="mx-2" mat-raised-button color="primary" (click)="openAddDialog()">Agregar alumno</button>
-            <button class="mx-2" mat-raised-button color="accent" (click)="openEditDialog()">Modificar alumno</button>
-            <button class="mx-2" mat-raised-button color="warn" (click)="openDeleteDialog()">Eliminar alumno</button>
+            <button [disabled]="!(isAdminCookie)" class="mx-2" mat-raised-button color="primary" (click)="openAddDialog()">Agregar alumno</button>
+            <button [disabled]="!(isAdminCookie)" class="mx-2" mat-raised-button color="accent" (click)="openEditDialog()">Modificar alumno</button>
+            <button [disabled]="!(isAdminCookie)" class="mx-2" mat-raised-button color="warn" (click)="openDeleteDialog()">Eliminar alumno</button>
             <button class="mx-2" mat-raised-button (click)="refrescarAlumnos()"><i class="fa-solid fa-arrow-rotate-right"></i></button>
             <span class="text-white d-block ms-auto mt-2">
                 {{appStatus | async}}

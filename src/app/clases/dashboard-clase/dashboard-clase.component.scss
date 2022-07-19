@@ -38,3 +38,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+button.mat-raised-button.mat-primary.mat-button-disabled, button.mat-raised-button.mat-button-disabled.mat-button-disabled{
+    color: grey !important;
+}

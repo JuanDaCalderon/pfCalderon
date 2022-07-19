@@ -10,10 +10,14 @@ import { DeleteCursoModalComponent } from '../modals/delete-curso-modal/delete-c
 
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { ClasesService } from '../clases.service';
 import { clases } from 'src/app/other/clases';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/app.state';
+import { selectFeatureAdmin } from 'src/app/state/selectors/login.selector';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard-clase',
@@ -31,6 +35,10 @@ export class DashboardComponentClase implements OnInit {
   dataSource = new MatTableDataSource<clases>(this.data);
   isLoadingResults: boolean = true;
   getClasesSub:Subscription;
+
+  isAdmin$: Observable<boolean> = new Observable();
+  isAdminCookie: boolean = false;
+
   getClasesData() {
     this.getClasesSub = this.clasesService.getClases().subscribe(response => {
       this.data = response;
@@ -45,11 +53,14 @@ export class DashboardComponentClase implements OnInit {
     },1000);
   });
 
-  constructor(private clasesService: ClasesService, public dialog: MatDialog, private toastr: ToastrService) {
+  constructor(private clasesService: ClasesService, public dialog: MatDialog, private toastr: ToastrService, private store: Store<AppState>, private cookie:CookieService) {
     this.getClasesData();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.isAdmin$ = this.store.select(selectFeatureAdmin);
+    this.isAdminCookie = (this.cookie.get('admin') === "true") ? true : false;
+   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

@@ -9,6 +9,10 @@ export const falseLogOut = createAction(
   '[Success LogOut] Success LogOut (Auth from TRUE to FALSE)'
 );
 
+export const rolAction = createAction(
+  '[Switch Rol] Success Switch Rol (ESTUDIANTES to ADMINISTRADOR)'
+);
+
 export const falseAdmin = createAction(
   '[Success Admin] Success Admin (Admin from FALSE to TRUE)',
   props<{ isAdmin: boolean }>()
