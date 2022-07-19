@@ -12,7 +12,7 @@ export class ClasesService {
   constructor(private http: HttpClient) { }
 
   getClases() {
-    return this.http.get<clases>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/cursos/1/clase')
+    return this.http.get<clases>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/clases')
       .pipe(
         map(data => {
           let clases: clases[] = [];
