@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { AlumnosService } from '../alumnos.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { cursos } from 'src/app/other/cursos';
+import { CursosService } from 'src/app/cursos/cursos.service';
 
 @Component({
   selector: 'app-add-alumno-modal',
@@ -11,25 +13,31 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-alumno-modal.component.scss']
 })
 export class AddAlumnoModalComponent implements OnInit, OnDestroy {
+  cursoList: cursos[] = [];
   isLoading: boolean = false;
   addForm: FormGroup;
   postAlumnoSub:Subscription;
+  getCursosSub: Subscription;
 
-  constructor (
+  constructor(
     public dialogRef: MatDialogRef<AddAlumnoModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MatDialog,
     private alumnoService: AlumnosService,
+    private cursoService: CursosService,
     private toastr: ToastrService
-    ) { }
-
-  ngOnInit(): void {
+  ) {
+    this.getCursosSub = this.cursoService.getCursos().subscribe(response => {
+      this.cursoList = response;
+    });
     this.addForm = new FormGroup({
       'firstName': new FormControl(null, [Validators.required]),
       'middleName': new FormControl(null, [Validators.required]),
       'lastName': new FormControl(null, [Validators.required]),
-      'curso': new FormControl(null, [Validators.required])
+      'cursoId': new FormControl(null, [Validators.required])
     });
   }
+
+  ngOnInit(): void { }
 
   onSubmit() {
     this.isLoading = true;
@@ -37,7 +45,6 @@ export class AddAlumnoModalComponent implements OnInit, OnDestroy {
     this.postAlumnoSub = this.alumnoService.postAlumno(alumno)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.toastr.success('Refresca la tabla de alumnos para ver el nuevo registro', 'Alumno Agregado');
           this.isLoading = false;
           this.addForm.reset();

@@ -39,7 +39,6 @@ export class DeleteClaseModalComponent implements OnInit {
       this.deleteClaseSub = this.claseService.deleteClases(this.data.clases[index])
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.toastr.success('Refresca la tabla de Clases para ver la eliminación de la clase', 'Clase Eliminada');
             this.isLoading = false;
             this.dialogRef.close();

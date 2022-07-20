@@ -41,12 +41,8 @@
             <td mat-cell *matCellDef="let alumno"> {{alumno.nombre | nameOutput:'other last name':15}}</td>
         </ng-container>
         <ng-container matColumnDef="curso">
-            <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'Curso' | uppercase }}</strong></th>
-            <td mat-cell *matCellDef="let alumno"> {{alumno.curso}}</td>
-        </ng-container>
-        <ng-container matColumnDef="clases">
-            <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'Clases' | uppercase }}</strong> </th>
-            <td mat-cell *matCellDef="let alumno"> {{alumno.clases}}</td>
+            <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'Curso al que pertenece' | uppercase }}</strong></th>
+            <td mat-cell *matCellDef="let alumno"> {{alumno.cursoId}}</td>
         </ng-container>
         <ng-container matColumnDef="avatar">
             <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'imagén' | uppercase }}</strong> </th>

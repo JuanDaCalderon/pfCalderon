@@ -34,15 +34,15 @@
       >
       <label for="lastName">Apellidos</label>
     </div>
-    <div class="form-floating my-2">
-      <input
-          formControlName="curso"
-          type="number"
-          class="form-control"
-          id="curso"
-      >
-      <label for="curso">Curso al que pertenece</label>
-    </div>
+    <div class="form-floating my-2 w-100 no-padding">
+      <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Curso al que pertenece</mat-label>
+          <mat-select formControlName="cursoId" [(value)]="selectedCurso">
+              <mat-option></mat-option>
+              <mat-option [value]="curso.id" *ngFor="let curso of cursoList">{{curso.curso}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  </div>
   </form>
 </div>
 <div class="justify-content-between" mat-dialog-actions>

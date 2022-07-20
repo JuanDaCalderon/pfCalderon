@@ -13,8 +13,7 @@ export interface postUser {
 
 export interface alumnosApi {
     avatar: string;
-    curso: number | string;
-    clases: number | string[];
+    cursoId: number | string;
     firstName: string;
     LastName: string;
     middleName: string;
@@ -24,7 +23,6 @@ export interface alumnosApi {
 export interface alumnosOutput {
     id: string | number;
     nombre: string;
-    curso: number | string;
-    clases: number[] | string[];
+    cursoId: number | string;
     avatar: string;
 }

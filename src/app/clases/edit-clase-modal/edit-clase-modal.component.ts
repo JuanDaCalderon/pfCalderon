@@ -57,7 +57,6 @@ export class EditClaseModalComponent implements OnInit, OnDestroy {
       this.selectedAlumnos.push(id);
     });
     this.selectedCurso = this.data.clase?.cursoId;
-    console.log(this.selectedAlumnos);
     this.editForm = new FormGroup({
       'clase': new FormControl({value: this.data.clase?.clase || null || null, disabled: !this.isSelected}, [Validators.required]),
       'profesor': new FormControl({value: this.data.clase?.profesor || null || null, disabled: !this.isSelected}, [Validators.required]),
@@ -85,7 +84,6 @@ export class EditClaseModalComponent implements OnInit, OnDestroy {
     this.editClaseSub = this.claseService.editClase(clase, this.data.clase.id.toString())
     .subscribe({
       next: (response) => {
-        console.log(response);
         this.toastr.success('Refresca la tabla de clases para ver la modificación', 'Clase Modificada');
         this.isLoading = false;
         this.dialogRef.close();

@@ -40,8 +40,7 @@ export class AlumnosService {
             alumno = {
               id: data[id].id,
               nombre: data[id].firstName + " " + data[id].middleName + " " + data[id].lastName,
-              curso: data[id].curso,
-              clases: data[id].clases,
+              cursoId: data[id].cursoId,
               avatar: data[id].avatar
             };
             alumnos.push(alumno);
@@ -99,7 +98,6 @@ export class AlumnosService {
   }
 
   deleteAlumno(alumnos: alumnosOutput) {
-    console.log(alumnos);
     return this.http.delete <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos/'+ alumnos.id)
       .pipe(
         map(data => {

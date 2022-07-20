@@ -36,7 +36,6 @@ export class DeleteAlumnoModalComponent implements OnInit, OnDestroy {
       this.deleteAlumnoSub = this.alumnoService.deleteAlumno(this.data.alumnos[index])
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.toastr.success('Refresca la tabla de alumnos para ver la eliminación del alumno', 'Alumno Eliminado');
             this.isLoading = false;
             this.dialogRef.close();

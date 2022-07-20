@@ -28,7 +28,7 @@ import { selectFeatureAdmin } from 'src/app/state/selectors/login.selector';
 export class DashboardComponentAlumno implements OnInit {
   titulo: string = 'Alumnos';
   data: alumnosOutput[] = [];
-  columnsToDisplay: string[] = ['select', 'id', 'nombre', 'curso', 'clases', 'avatar'];
+  columnsToDisplay: string[] = ['select', 'id', 'nombre', 'curso', 'avatar'];
   selection = new SelectionModel<alumnosOutput>(true, []);
   @ViewChild('alumnosTable') alumnosTable: MatTable<Element>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -119,7 +119,7 @@ export class DashboardComponentAlumno implements OnInit {
           firstName: fullName[0],
           middleName: fullName[1],
           lastName: fullName[2],
-          curso: this.selection.selected[0].curso,
+          cursoId: this.selection.selected[0].cursoId,
         }
       }
       dialogRef = this.dialog.open(EditAlumnoModalComponent, {

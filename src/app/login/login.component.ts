@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.cookie.set('id', response.id);
               this.cookie.set('avatar', response.avatar);
             }
-            console.log(response.admin);
             this.store.dispatch(falseAdmin({ isAdmin: response.admin }));
             this.toastr.success('Has iniciado sesión correctamente');
             setTimeout(() => {

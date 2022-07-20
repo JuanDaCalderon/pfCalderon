@@ -45,7 +45,6 @@ export class SignupComponent implements OnInit {
       this.signupSub = this.signupService.signup(user)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.toastr.success('Usuario creado correctamente');
           this.isLoading = false;
           setTimeout(() => {

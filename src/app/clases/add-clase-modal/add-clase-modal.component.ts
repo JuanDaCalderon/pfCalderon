@@ -70,7 +70,6 @@ export class AddClaseModalComponent implements OnInit, OnDestroy {
     this.postClaseSub = this.claseService.postClases(clase)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.toastr.success('Refresca la tabla de clases para ver el nuevo registro', 'Clase registrada');
           this.isLoading = false;
           this.addForm.reset();
