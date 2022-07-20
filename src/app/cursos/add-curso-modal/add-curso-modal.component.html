@@ -15,13 +15,13 @@
         >
         <label for="curso">Nombre del curso</label>
     </div>
-    <div class="form-floating my-2">
-        <mat-form-field appearance="fill">
-          <mat-label>Clases</mat-label>
-          <mat-select formControlName="clases" multiple>
-            <mat-option *ngFor="let clase of clasesList" [value]="clase.id">{{clase.nombre}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <div class="form-floating my-2 w-100 no-padding">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Clases de este curso</mat-label>
+        <mat-select formControlName="clases" multiple>
+          <mat-option *ngFor="let clase of clasesList" [value]="clase.id">{{clase.clase}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </form>
 </div>

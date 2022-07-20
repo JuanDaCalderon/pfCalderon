@@ -77,13 +77,17 @@ export class DashboardComponentCurso implements OnInit {
   }
 
   openAddDialog() {
-    this.dialog.open(AddCursoModalComponent, {
+    let dialogRef = this.dialog.open(AddCursoModalComponent, {
       width: '600px',
       data: this.dialog,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.refrescarCursos();
     });
   }
 
   openEditDialog() {
+    let dialogRef = null;
     let cursoEdit = null;
     if (this.selection.selected.length > 1 || this.selection.selected.length === 0) {
       let message: string;
@@ -98,22 +102,33 @@ export class DashboardComponentCurso implements OnInit {
           clases: this.selection.selected[0].clases
         }
       }
-      this.dialog.open(EditCursoModalComponent, {
+      dialogRef = this.dialog.open(EditCursoModalComponent, {
         width: '600px',
         data: { dialog: this.dialog, curso: cursoEdit },
+      });
+    }
+    if (dialogRef) {
+      dialogRef.afterClosed().subscribe(() => {
+        this.refrescarCursos();
       });
     }
   }
 
   openDeleteDialog() {
+    let dialogRef = null;
     if (this.selection.selected.length === 0) {
       let message: string = 'No has seleccionado ningún curso';
       this.toastr.error(message);
     }
     else {
-      this.dialog.open(DeleteCursoModalComponent, {
+      dialogRef = this.dialog.open(DeleteCursoModalComponent, {
         width: '400px',
         data: { dialog: this.dialog, cursos: this.selection.selected },
+      });
+    }
+    if (dialogRef) {
+      dialogRef.afterClosed().subscribe(() => {
+        this.refrescarCursos();
       });
     }
   }

@@ -37,7 +37,6 @@ export class DeleteCursoModalComponent implements OnInit, OnDestroy {
       this.deleteCursoSub = this.cursosService.deleteCurso(this.data.cursos[index])
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.toastr.success('Refresca la tabla de Cursos para ver la eliminación del curso', 'Curso Eliminado');
             this.isLoading = false;
             this.dialogRef.close();

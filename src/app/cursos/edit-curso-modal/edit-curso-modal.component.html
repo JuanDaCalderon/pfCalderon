@@ -8,21 +8,17 @@
   </div>
   <form [formGroup]="editForm">
     <div class="form-floating my-2">
-        <input
-            formControlName="curso"
-            type="text"
-            class="form-control"
-            id="curso"
-        >
-        <label for="curso">Nombre del curso</label>
+      <input formControlName="curso" type="text" class="form-control" id="curso">
+      <label for="curso">Nombre del curso</label>
     </div>
-    <div class="form-floating my-2">
-        <mat-form-field appearance="fill">
+
+    <div class="form-floating my-2 w-100 no-padding">
+      <mat-form-field class="w-100" appearance="outline">
           <mat-label>Clases</mat-label>
-          <mat-select formControlName="clases" multiple>
-            <mat-option *ngFor="let clase of clasesList" [value]="clase.id">{{clase.nombre}}</mat-option>
+          <mat-select formControlName="clases" [(value)]="selectedClases" multiple>
+              <mat-option [value]="clase.id" *ngFor="let clase of clasesList">{{clase.clase}}</mat-option>
           </mat-select>
-        </mat-form-field>
+      </mat-form-field>
     </div>
   </form>
 </div>

@@ -41,16 +41,18 @@
             <td mat-cell *matCellDef="let curso"> {{curso.curso}}</td>
         </ng-container>
         <ng-container matColumnDef="clases">
-            <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'Clases' | uppercase }}</strong> </th>
+            <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'Clases de este curso' | uppercase }}</strong> </th>
             <td mat-cell *matCellDef="let curso">
-                <div *ngIf="curso.clases.length<=0">
+                <ng-container *ngIf="curso.clases.length<=0; else elseClases">
                     <span>Este curso no tiene ningúna clase asignada</span>
-                </div>
-                <div *ngFor="let clase of curso.clases">
-                    <hr class="m-2">
-                    <span class="fw-bold">Id: </span> {{ clase.id }} | <span class="fw-bold">Nombre: </span> {{ clase.clase }} | <span class="fw-bold">Profesor: </span> {{ clase.profesor }}
-                    <hr class="m-2">
-                </div>
+                </ng-container>
+                <ng-template #elseClases>
+                    <div *ngFor="let clase of curso.clases">
+                        <hr class="m-2">
+                        <span class="fw-bold">Id: </span> {{ clase.id }} | <span class="fw-bold">Nombre: </span> {{ clase.clase }} | <span class="fw-bold">Profesor: </span> {{ clase.profesor }}
+                        <hr class="m-2">
+                    </div>
+                </ng-template>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay" appHeadersTitles></tr>
