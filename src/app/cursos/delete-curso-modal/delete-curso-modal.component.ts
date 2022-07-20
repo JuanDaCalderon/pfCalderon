@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { CursosService } from '../cursos.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { CursosService } from '../cursos.service';
 import { cursos } from 'src/app/other/cursos';
 
 @Component({
@@ -10,7 +10,7 @@ import { cursos } from 'src/app/other/cursos';
   templateUrl: './delete-curso-modal.component.html',
   styleUrls: ['./delete-curso-modal.component.scss']
 })
-export class DeleteCursoModalComponent implements OnInit {
+export class DeleteCursoModalComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isSelected: boolean = false;
   bodyCopy: string = 'Selecciona el curso que quieres eliminar';

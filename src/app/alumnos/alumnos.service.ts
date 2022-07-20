@@ -10,6 +10,26 @@ import { alumnosOutput, alumnosApi } from '../other/users';
 export class AlumnosService {
   constructor(private http: HttpClient) { }
 
+  getAlumnosAPI() {
+    return this.http.get <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos')
+      .pipe(
+        map(data => {
+          let alumnos: alumnosApi[] = [];
+          for (const id in data) {
+            let alumno: alumnosApi;
+            alumno = { ...data[id] };
+            alumnos.push(alumno);
+          }
+          return alumnos
+        }),
+        catchError(err => {
+          let message: string;
+          message = 'Error intentando traer los alumnos, intenta más tarde'
+          return throwError(() => message);
+        })
+      )
+  }
+
   getAlumnos() {
     return this.http.get <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos')
       .pipe(
@@ -31,6 +51,20 @@ export class AlumnosService {
         catchError(err => {
           let message: string;
           message = 'Error intentando traer los alumnos, intenta más tarde'
+          return throwError(() => message);
+        })
+      )
+  }
+
+  getAlumno(id: number | string) {
+    return this.http.get<alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos/' + id)
+      .pipe(
+        map(data => {
+          return data
+        }),
+        catchError(err => {
+          let message: string;
+          message = 'Error intentando traer el alumno, intenta más tarde'
           return throwError(() => message);
         })
       )

@@ -37,45 +37,45 @@ export class ClasesService {
       )
   }
 
-  /* postClases(alumno: { firstName: string, middleName: string, lastName: string, curso: number }) {
-    return this.http.post <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos', alumno)
+  postClases(clase: clases) {
+    return this.http.post <clases>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/clases', clase)
       .pipe(
         map(data => {
           return data
         }),
         catchError(err => {
           let message: string;
-          message = 'Error intentando agregar el alumno, intenta más tarde'
+          message = 'Error intentando agregar la clase, intenta más tarde'
           return throwError(() => message);
         })
       )
-  } */
+  }
 
-  /* editClases(alumno: { firstName: string, middleName: string, lastName: string, curso: number }, id: string) {
-    return this.http.put <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos/'+id, alumno)
+  editClase(clase: clases, id: string) {
+    return this.http.put<clases>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/clases/' + id, clase)
       .pipe(
         map(data => {
           return data
         }),
         catchError(err => {
           let message: string;
-          message = 'Error intentando modificar el alumno, intenta más tarde'
+          message = 'Error intentando modificar la clase, intenta más tarde'
           return throwError(() => message);
         })
       )
-  } */
+  }
 
-  /* deleteClases(alumnos: alumnosOutput) {
-    return this.http.delete <alumnosApi>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/alumnos/'+ alumnos.id)
+  deleteClases(clase: clases) {
+    return this.http.delete <clases>('https://629415d0089f87a57ac8f2a2.mockapi.io/api/v1/clases/'+ clase.id)
       .pipe(
         map(data => {
           return data
         }),
         catchError(err => {
           let message: string;
-          message = 'Error intentando eliminar el alumno, intenta más tarde'
+          message = 'Error intentando eliminar la clase, intenta más tarde'
           return throwError(() => message);
         })
       )
-  } */
+  }
 }

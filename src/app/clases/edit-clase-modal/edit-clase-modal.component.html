@@ -1,1 +1,51 @@
-<p>edit-clase-modal works!</p>
+<h1 mat-dialog-title class="text-center" style="font-weight: 500;">Modificar Clase</h1>
+<div mat-dialog-content>
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <form [formGroup]="editForm">
+    <div class="form-floating my-2">
+        <input
+            formControlName="clase"
+            type="text"
+            class="form-control"
+            id="clase"
+        >
+        <label for="clase">Nombre de la clase</label>
+    </div>
+    <div class="form-floating my-2">
+      <input
+          formControlName="profesor"
+          type="text"
+          class="form-control"
+          id="profesor"
+      >
+      <label for="profesor">Profesor que la dicta</label>
+    </div>
+    <div class="form-floating my-2 w-100 no-padding">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Curso al que pertenece</mat-label>
+            <mat-select formControlName="cursoId" [(value)]="selectedCurso">
+                <mat-option></mat-option>
+                <mat-option [value]="curso.id" *ngFor="let curso of cursoList">{{curso.curso}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="form-floating my-2 w-100 no-padding">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Alumnos</mat-label>
+            <mat-select formControlName="alumnos" [(value)]="selectedAlumnos" multiple>
+                <mat-option [value]="alumno.id" *ngFor="let alumno of alumnosList">{{alumno.nombre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+  </form>
+</div>
+<div class="justify-content-between" mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!editForm.valid" (click)="onSubmit()">Modificar</button>
+</div>
+
+

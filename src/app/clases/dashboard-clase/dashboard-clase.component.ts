@@ -2,11 +2,6 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, OnDestr
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { alumnosOutput } from 'src/app/other/users';
-
-/* import { AddCursoModalComponent } from '../modals/add-curso-modal/add-curso-modal.component';
-import { EditCursoModalComponent } from '../modals/edit-curso-modal/edit-curso-modal.component';
-import { DeleteCursoModalComponent } from '../modals/delete-curso-modal/delete-curso-modal.component'; */
 
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +13,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/app.state';
 import { selectFeatureAdmin } from 'src/app/state/selectors/login.selector';
 import { CookieService } from 'ngx-cookie-service';
+import { DeleteClaseModalComponent } from '../delete-clase-modal/delete-clase-modal.component';
+import { EditClaseModalComponent } from '../edit-clase-modal/edit-clase-modal.component';
+import { AddClaseModalComponent } from '../add-clase-modal/add-clase-modal.component';
 
 @Component({
   selector: 'app-dashboard-clase',
@@ -88,45 +86,63 @@ export class DashboardComponentClase implements OnInit {
   }
 
   openAddDialog() {
-    /* this.dialog.open(AddCursoModalComponent, {
+    let dialogRef = this.dialog.open(AddClaseModalComponent, {
       width: '600px',
       data: this.dialog,
-    }); */
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.refrescarClases();
+    });
   }
 
   openEditDialog() {
-    /* let cursoEdit = null;
+    let dialogRef = null;
+    let claseEdit = null;
     if (this.selection.selected.length > 1 || this.selection.selected.length === 0) {
       let message: string;
-      (this.selection.selected.length === 0) ? message = 'No has seleccionado ningún curso': message = 'Solo puedes editar un unico curso';
+      (this.selection.selected.length === 0) ? message = 'No has seleccionado ninguna clase': message = 'Solo puedes editar una única clase';
       this.toastr.error(message);
     }
     else {
       if (this.selection.selected[0] !== undefined && this.selection.selected[0] !== null) {
-        cursoEdit = {
+        claseEdit = {
           id: this.selection.selected[0].id,
-          curso: this.selection.selected[0].curso,
-          clases: this.selection.selected[0].clases
+          clase: this.selection.selected[0].clase,
+          profesor: this.selection.selected[0].profesor,
+          cursoId: this.selection.selected[0].cursoId,
+          alumnos: this.selection.selected[0].alumnos,
         }
       }
-      this.dialog.open(EditCursoModalComponent, {
+      dialogRef = this.dialog.open(EditClaseModalComponent, {
         width: '600px',
-        data: { dialog: this.dialog, curso: cursoEdit },
+        data: { dialog: this.dialog, clase: claseEdit },
       });
-    } */
+    }
+
+    if (dialogRef) {
+      dialogRef.afterClosed().subscribe(() => {
+        this.refrescarClases();
+      });
+    }
   }
 
   openDeleteDialog() {
-    /* if (this.selection.selected.length === 0) {
-      let message: string = 'No has seleccionado ningún curso';
+    let dialogRef = null;
+    if (this.selection.selected.length === 0) {
+      let message: string = 'No has seleccionado ninguna clase';
       this.toastr.error(message);
     }
     else {
-      this.dialog.open(DeleteCursoModalComponent, {
+      dialogRef = this.dialog.open(DeleteClaseModalComponent, {
         width: '400px',
-        data: { dialog: this.dialog, cursos: this.selection.selected },
+        data: { dialog: this.dialog, clases: this.selection.selected },
       });
-    } */
+    }
+    if (dialogRef) {
+      dialogRef.afterClosed().subscribe(() => {
+        this.refrescarClases();
+      });
+    }
   }
 
   refrescarClases() {

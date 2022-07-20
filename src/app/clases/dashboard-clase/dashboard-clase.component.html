@@ -17,7 +17,7 @@
     <div class="example-loading-shade" *ngIf="isLoadingResults">
         <mat-spinner color="accent" *ngIf="isLoadingResults"></mat-spinner>
     </div>
-    <table mat-table #clasesTable [dataSource]="dataSource" class="mat-elevation-z8 demo-table m-auto">
+    <table mat-table #clasesTable [dataSource]="dataSource" class="mat-elevation-z8 demo-table m-auto clases-no-padding">
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
                 <strong appHeadersTitles>{{ 'Select' | uppercase}}</strong>
@@ -50,15 +50,19 @@
         <ng-container matColumnDef="alumnos">
             <th mat-header-cell *matHeaderCellDef> <strong appHeadersTitles>{{ 'Alumnos' | uppercase }}</strong> </th>
             <td mat-cell *matCellDef="let clase">
-                {{clase.alumnos}}
-                <div *ngIf="clase.alumnos.length<=0">
+                <ng-container *ngIf="clase.alumnos.length<=0; else elseAlumnos">
                     <span>Este clase no tiene alumnos asignados</span>
-                </div>
-                <!-- <div *ngFor="let clase of curso.clases">
-                    <hr class="m-2">
-                    <span class="fw-bold">Id: </span> {{ clase.id }} | <span class="fw-bold">Nombre: </span> {{ clase.clase }} | <span class="fw-bold">Profesor: </span> {{ clase.profesor }}
-                    <hr class="m-2">
-                </div> -->
+                </ng-container>
+                <ng-template #elseAlumnos>
+                    <mat-form-field class="w-100 p-0" appearance="outline">
+                        <mat-label>Alumnos inscritos en esta clase</mat-label>
+                        <mat-select>
+                          <mat-option disabled="true" *ngFor="let alumnos of clase.alumnos" [value]="alumnos.id">
+                            {{alumnos.firstName + " " + alumnos.middleName + " " + alumnos.lastName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </ng-template>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay" appHeadersTitles></tr>
@@ -68,8 +72,8 @@
         <div class="row w-100 m-0 p-0">
             <div class="col-12 p-0 m-0">
                 <mat-paginator
-                    [pageSize]="4"
-                    [pageSizeOptions]="[4, 6]"
+                    [pageSize]="12"
+                    [pageSizeOptions]="[6, 12]"
                     [length]="data.length"
                     showFirstLastButtons
                     aria-label="Seleccionar página de Clases">

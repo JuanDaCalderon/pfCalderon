@@ -94,13 +94,17 @@ export class DashboardComponentAlumno implements OnInit {
   }
 
   openAddDialog() {
-    this.dialog.open(AddAlumnoModalComponent, {
+    let dialogRef = this.dialog.open(AddAlumnoModalComponent, {
       width: '600px',
       data: this.dialog,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.refrescarAlumnos();
     });
   }
 
   openEditDialog() {
+    let dialogRef = null;
     let alumnoEdit = null;
     if (this.selection.selected.length > 1 || this.selection.selected.length === 0) {
       let message: string;
@@ -118,22 +122,33 @@ export class DashboardComponentAlumno implements OnInit {
           curso: this.selection.selected[0].curso,
         }
       }
-      this.dialog.open(EditAlumnoModalComponent, {
+      dialogRef = this.dialog.open(EditAlumnoModalComponent, {
         width: '600px',
         data: { dialog: this.dialog, alumnos: alumnoEdit },
+      });
+    }
+    if (dialogRef) {
+      dialogRef.afterClosed().subscribe(() => {
+        this.refrescarAlumnos();
       });
     }
   }
 
   openDeleteDialog() {
+    let dialogRef = null;
     if (this.selection.selected.length === 0) {
       let message: string = 'No has seleccionado ningún alumno';
       this.toastr.error(message);
     }
     else {
-      this.dialog.open(DeleteAlumnoModalComponent, {
+      dialogRef = this.dialog.open(DeleteAlumnoModalComponent, {
         width: '400px',
         data: {dialog: this.dialog, alumnos: this.selection.selected},
+      });
+    }
+    if (dialogRef) {
+      dialogRef.afterClosed().subscribe(() => {
+        this.refrescarAlumnos();
       });
     }
   }
