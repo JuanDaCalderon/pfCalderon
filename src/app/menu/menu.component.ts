@@ -22,10 +22,8 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.isAuthenticated$ = this.store.select(selectFeatureLogin);
     this.isAuthCookie = (this.cookie.get('username')) ? true : false;
-
     this.isAdmin$ = this.store.select(selectFeatureAdmin);
     this.isAdminCookie = (this.cookie.get('admin') === "true") ? true : false;
-
     this.rol$ = this.store.select(selectFeatureAdminRol);
   }
 
